@@ -7,13 +7,11 @@ function HomePage() {
       <Container>
         <div className="space-y-6">
           <h1 className="text-2xl font-bold">
-            Hey, I'm a Senior Software Engineer at Company. I enjoy working with
-            Next.js and crafting beautiful front-end experiences.
+            I'm Egor, 35 years old. I've worked on products that have reached hundreds of thousands of users, from the first sketch to the final design specification.
           </h1>
           <p>
-            This portfolio is built with Next.js and a library called next-mdx.
-            It allows you to write Markdown and focus on the content of your
-            portfolio.
+             There were different types of products: analytical, financial, recruiting, construction, social, outsourcing, logistics, discount, cryptocurrency, administrative, banking, car rental, and patent service. 
+Please have a look around in my portfolio.
           </p>
 
           <p>Deploy your own in a few minutes.</p>
