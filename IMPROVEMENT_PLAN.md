@@ -1,12 +1,12 @@
 # Completion plan
 
-1. Reconcile the README with the Pages Router implementation, `_posts`, components, hooks and lib before describing the comment/blog product.
-2. Audit `.env.local.example` and identify the actual external backend/provider used for comments.
-3. Define typed post/comment/user records and validate all comment payloads server-side before persistence.
-4. Add authentication/ownership rules for edit/delete actions and protect moderation/admin operations if implemented.
-5. Sanitize user-generated comment content and define link/HTML/Markdown rendering rules explicitly.
-6. Add pagination/loading, empty discussion, submission failure, retry and optimistic-update rollback states.
-7. Add spam/rate-limit protections before exposing public comment submission.
-8. Add tests for validation, authorization, sanitization and core comment flows.
-9. Add CI for formatting/lint/type-check, tests and production build.
-10. Rewrite README as verified portfolio documentation describing content source, comment persistence, moderation/security boundary, setup and limitations.
+1. Document the actual product: a Next.js Pages Router Markdown blog (`_posts`, post index/detail) with a comment form/list and `/api/comment`, not a generic commenting SaaS.
+2. Trace `.env.local.example`, `lib/redis.js`, `fetchComment/createComment/deleteComment/getUser` and `/api/comment` end to end; document the exact Redis/provider persistence model and required environment variables without exposing credentials.
+3. Define validated post/comment/user schemas with stable comment ids, post slug association, author/display fields, timestamps and bounded body length; reject malformed payloads server-side.
+4. Verify the current delete flow: require authenticated ownership or an explicit moderation capability before deletion, and never trust a client-supplied user/id alone to authorize destructive actions.
+5. Treat comment bodies as untrusted content: escape/sanitize output, define whether Markdown/links are supported and prevent stored/reflected script injection independently of the trusted `_posts` Markdown pipeline.
+6. Add deterministic loading/empty/submitting/success/failure/retry states and rollback optimistic UI after failed create/delete operations; prevent duplicate submissions.
+7. Add abuse controls to public submission: request/body limits, rate limiting, basic spam protection and safe structured logging without storing unnecessary personal data.
+8. Add unit/API tests for validation, Redis failure, create/delete authorization and sanitization plus interaction tests for reading a post and submitting/recovering a comment.
+9. Pin the legacy Next.js/Node toolchain or upgrade deliberately, then add CI for formatting/lint/tests and production build before changing runtime dependencies.
+10. Rewrite README as a verified Markdown-blog-with-comments case study covering content source, Redis persistence, comment security/moderation boundary, setup, screenshots and known limitations.
