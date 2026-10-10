@@ -27,7 +27,7 @@ export default function useComments() {
     const token = await getAccessTokenSilently()
 
     try {
-      await fetch('/api/comment', {
+      const response = await fetch('/api/comment', {
         method: 'POST',
         body: JSON.stringify({ url, text }),
         headers: {
@@ -35,6 +35,7 @@ export default function useComments() {
           'Content-Type': 'application/json',
         },
       })
+      if (!response.ok) throw new Error('Unable to create comment')
       setText('')
       await mutate()
     } catch (err) {
@@ -46,17 +47,18 @@ export default function useComments() {
     const token = await getAccessTokenSilently()
 
     try {
-      await fetch('/api/comment', {
+      const response = await fetch('/api/comment', {
         method: 'DELETE',
-        body: JSON.stringify({ url, comment }),
+        body: JSON.stringify({ url, id: comment.id }),
         headers: {
           Authorization: token,
           'Content-Type': 'application/json',
         },
       })
+      if (!response.ok) throw new Error('Unable to delete comment')
       await mutate()
     } catch (err) {
-      console.log(err)
+      console.error(err)
     }
   }
 
